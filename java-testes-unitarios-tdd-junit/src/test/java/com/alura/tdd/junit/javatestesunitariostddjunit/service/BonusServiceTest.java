@@ -30,7 +30,7 @@ class BonusServiceTest {
     }
 
     @Test
-    public void bonusDeveriaSer10PorCento() {
+    public void bonusDeveriaSerExatamenteMil() {
         BonusService bonusService = new BonusService();
         BigDecimal bonus = bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("10000")));
         Assertions.assertEquals(new BigDecimal("1000.00"), bonus);
