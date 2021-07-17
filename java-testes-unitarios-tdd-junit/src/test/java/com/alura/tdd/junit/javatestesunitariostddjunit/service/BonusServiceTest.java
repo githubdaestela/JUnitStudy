@@ -2,6 +2,7 @@ package com.alura.tdd.junit.javatestesunitariostddjunit.service;
 
 import com.alura.tdd.junit.javatestesunitariostddjunit.modelo.Funcionario;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,9 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BonusServiceTest {
 
+    private BonusService bonusService;
+
+    @BeforeEach
+    public void inicializar() {
+        //melhorando BonusService bonusService = new BonusService();
+        this.bonusService = new BonusService();
+    }
+
     @Test
     public void bonusDeveriaSerZero() {
-        BonusService bonusService = new BonusService();
 //        Assertions.assertThrows(IllegalArgumentException.class, () -> bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("25000.00"))));
         try {
             bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("25000.00")));
@@ -25,8 +33,6 @@ class BonusServiceTest {
 
     @Test
     public void bonusDeveriaSerDezPorCento() {
-        //intancia a classe que quer testar
-        BonusService bonusService = new BonusService();
         //chamando o método e passando como parametro um funcionario intanciando um Funcionario(classe)
         //passar o retorno do método para uma variável
         BigDecimal bonus = bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("2500")));
@@ -36,7 +42,6 @@ class BonusServiceTest {
 
     @Test
     public void bonusDeveriaSerExatamenteMil() {
-        BonusService bonusService = new BonusService();
         BigDecimal bonus = bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("10000")));
         Assertions.assertEquals(new BigDecimal("1000.00"), bonus);
     }
