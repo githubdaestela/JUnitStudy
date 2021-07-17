@@ -12,9 +12,9 @@ public class BonusService {
     public BigDecimal calcularBonus(Funcionario funcionario) {
         //variavel valor do tipo BigDecimal que pega o salario atual, multiplica por 0.1
         BigDecimal valor = funcionario.getSalario().multiply(new BigDecimal("0.1"));
-        //verificação para o valor do bonus não passar de mil reais
+        //verificação para que ninguém receba bonus de mais de mil reais
         if (valor.compareTo(new BigDecimal("1000")) > 0) {
-            valor = BigDecimal.ZERO;
+            throw new IllegalArgumentException("Funcionário sem direito a bônus");
         }
         return valor.setScale(2, RoundingMode.HALF_UP);
     }

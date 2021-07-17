@@ -13,19 +13,24 @@ class BonusServiceTest {
 
     @Test
     public void bonusDeveriaSerZero() {
-        //intancia a classe que quer testar
         BonusService bonusService = new BonusService();
-        //chamando o método e passando como parametro um funcionario intanciando um Funcionario(classe)
-        //passar o retorno do método para uma variável
-        BigDecimal bonus = bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("25000.00")));
-        //Verificar se o valor de retono vai ser zero como o esperado
-        Assertions.assertEquals(new BigDecimal("0.00"), bonus);
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("25000.00"))));
+        try {
+            bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("25000.00")));
+            fail("Não caiu na Exception");
+        } catch (Exception e) {
+            Assertions.assertEquals("Funcionário sem direito a bônus", e.getMessage());
+        }
     }
 
     @Test
     public void bonusDeveriaSerDezPorCento() {
+        //intancia a classe que quer testar
         BonusService bonusService = new BonusService();
+        //chamando o método e passando como parametro um funcionario intanciando um Funcionario(classe)
+        //passar o retorno do método para uma variável
         BigDecimal bonus = bonusService.calcularBonus(new Funcionario("Raquel", LocalDate.now(), new BigDecimal("2500")));
+        //Verificar se o valor de retono vai ser zero como o esperado
         Assertions.assertEquals(new BigDecimal("250.00"), bonus);
     }
 
